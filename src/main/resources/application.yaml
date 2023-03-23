@@ -1,0 +1,34 @@
+debug: true
+
+spring:
+  application:
+    name: cassandra-test
+
+  sleuth:
+    trace-id128: true
+    propagation:
+      type: w3c,b3
+    reactor:
+      instrumentation-type: decorate_on_each
+    web:
+      additional-skip-pattern: /actuator(/.*)?
+
+  zipkin:
+    baseUrl: http://localhost:9411
+    sender:
+      type: web
+
+  data:
+    cassandra:
+      local-datacenter: ${CASSANDRA_DATA_CENTER:datacenter1}
+      contact-points:
+        - ${CASSANDRA_CONTACT_POINT:127.0.0.1}
+      keyspace-name: ${CASSANDRA_KEYSPACE_NAME:cassandra}
+      schema-action: recreate
+      username: ${CASSANDRA_USERNAME:cassandra}
+      password: ${CASSANDRA_PASSWORD:cassandra}
+      ssl: ${CASSANDRA_SSL:false}
+      port: ${CASSANDRA_PORT:9042}
+
+server:
+  port: 8080
