@@ -9,7 +9,7 @@ on:
         options:
           - preprod
           - prod
-
+          
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,5 +31,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy working-directory: ${{ needs.build.outputs.cluster }}
+      - name: Deploy working-directory
+        run: echo "The cluster is ${{ needs.build.outputs.cluster }}"
     
