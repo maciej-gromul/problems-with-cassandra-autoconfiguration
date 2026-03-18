@@ -19,11 +19,11 @@ jobs:
       - name: Prepare Values
         id: prepare
         run: |
-          if [[ ${{ inputs.env }} eq "prod" ]]; then
+          if [[ "${{ inputs.env }}" -e "prod" ]]; then
             echo "cluster=prod-cluster" >> $GITHUB_OUTPUT
           fi
 
-          if [[ ${{ inputs.env }} eq "preprod ]]; then
+          if [[ "${{ inputs.env }}" -e "preprod ]]; then
             echo "cluster=preprod-cluster" >> $GITHUB_OUTPUT
           fi
           
