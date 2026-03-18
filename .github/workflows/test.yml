@@ -14,16 +14,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      cluster: ${{ steps.prepare.cluster }}
+      cluster: ${{ steps.prepare.outputs.cluster }}
     steps:
       - name: Prepare Values
         id: prepare
         run: |
-          if [[ "${{ inputs.env }}" -e "prod" ]]; then
+          if [[ "${{ inputs.env }}" -eq "prod" ]]; then
             echo "cluster=prod-cluster" >> $GITHUB_OUTPUT
           fi
 
-          if [[ "${{ inputs.env }}" -e "preprod ]]; then
+          if [[ "${{ inputs.env }}" -eq "preprod ]]; then
             echo "cluster=preprod-cluster" >> $GITHUB_OUTPUT
           fi
           
