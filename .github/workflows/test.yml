@@ -1,0 +1,35 @@
+name: Tester
+
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        description: env
+        type: choice
+        options:
+          - preprod
+          - prod
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      cluster: ${{ steps.prepare.cluster }}
+    steps:
+      - name: Prepare Values
+        id: prepare
+        run: |
+          if [[ ${{ inputs.env }} eq "prod" ]]; then
+            echo "cluster=prod-cluster" >> $GITHUB_OUTPUT
+          fi
+
+          if [[ ${{ inputs.env }} eq "preprod ]]; then
+            echo "cluster=preprod-cluster" >> $GITHUB_OUTPUT
+          fi
+          
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy working-directory: ${{ needs.build.outputs.cluster }}
+    
