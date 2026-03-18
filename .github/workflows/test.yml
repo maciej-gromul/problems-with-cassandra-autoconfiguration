@@ -23,7 +23,7 @@ jobs:
             echo "cluster=prod-cluster" >> $GITHUB_OUTPUT
           fi
 
-          if [[ "${{ inputs.env }}" -eq "preprod ]]; then
+          if [[ "${{ inputs.env }}" -eq "preprod" ]]; then
             echo "cluster=preprod-cluster" >> $GITHUB_OUTPUT
           fi
           
